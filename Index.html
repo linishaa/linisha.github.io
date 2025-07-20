@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linisha's Site</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+    }
+
+    .content {
+      z-index: 1;
+      padding-left: 50px;
+      max-width: 50%;
+    }
+
+    .content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop>
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div class="container">
+    <div class="content">
+      <h1>Welcome to Linisha's World</h1>
+      <p>Creative. Bold. You.</p>
+    </div>
+  </div>
+</body>
+</html>
