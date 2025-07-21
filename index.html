@@ -2,65 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linisha's Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linisha's World</title>
   <style>
-    body, html {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
       height: 100%;
+      font-family: 'Arial', sans-serif;
       overflow: hidden;
-      font-family: Arial, sans-serif;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
 
     .container {
-      position: relative;
       height: 100vh;
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      color: white;
+      justify-content: center;
+      position: relative;
     }
 
-    video {
-      position: absolute;
-      left: 0;
-      top: 0;
-      min-width: 100%;
-      min-height: 100%;
-      z-index: -1;
-      object-fit: cover;
-    }
-
-    .content {
-      z-index: 1;
-      padding-left: 50px;
-      max-width: 50%;
-    }
-
-    .content h1 {
+    #mainText {
       font-size: 3rem;
       font-weight: bold;
-      margin-bottom: 10px;
+      color: white;
+      position: absolute;
+      transition: all 0.4s ease;
+      cursor: pointer;
     }
 
-    .content p {
-      font-size: 1.5rem;
+    .nav-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 2;
+    }
+
+    .nav-item {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      color: white;
+      font-weight: bold;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .nav-item:hover {
+      transform: scale(1.2);
+      background: rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
 <body>
+
+  <!-- Background video -->
   <video autoplay muted loop>
-    <source src="linmy.mp4" type="video/mp4">
+    <source src="linmy.mp4" type="video/mp4" />
     Your browser does not support HTML5 video.
   </video>
 
-  <div class="container">
-    <div class="content">
-      <h1>Welcome to Linisha's World</h1>
-      <p>Creative. Bold. You.</p>
-    </div>
+  <!-- Navigation buttons -->
+  <div class="nav-box">
+    <div class="nav-item">Gallery</div>
+    <div class="nav-item">About</div>
+    <div class="nav-item">Vibes</div>
   </div>
+
+  <!-- Center heading -->
+  <div class="container">
+    <div id="mainText">✨ Welcome to Linisha’s World ✨</div>
+  </div>
+
+  <!-- Fun jump script -->
+  <script>
+    const text = document.getElementById('mainText');
+    const messages = [
+      "Oh no, you can't touch me!",
+      "Too slow 😜",
+      "Catch me if you can!",
+      "I'm outta here!",
+      "Try again, Linisha!"
+    ];
+
+    let msgIndex = 0;
+
+    text.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 200);
+      const y = Math.random() * (window.innerHeight - 100);
+      text.style.left = `${x}px`;
+      text.style.top = `${y}px`;
+      text.textContent = messages[msgIndex];
+      msgIndex = (msgIndex + 1) % messages.length;
+
+      setTimeout(() => {
+        text.style.left = '50%';
+        text.style.top = '50%';
+        text.style.transform = 'translate(-50%, -50%)';
+        text.textContent = "✨ Welcome to Linisha’s World ✨";
+      }, 1500);
+    });
+
+    // Initial center position
+    window.onload = () => {
+      text.style.left = '50%';
+      text.style.top = '50%';
+      text.style.transform = 'translate(-50%, -50%)';
+    };
+  </script>
+
 </body>
 </html>
