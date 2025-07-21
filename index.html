@@ -1,110 +1,97 @@
 <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Linisha's Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linisha's Site</title>
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }body, html {
-  height: 100%;
-  font-family: 'Arial', sans-serif;
-  overflow: hidden;
-}
-
-video {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: black;
+      color: white;
+    }video {
   position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
 }
 
 .container {
-  height: 100vh;
-  width: 100%;
   position: relative;
-}
-
-#mainText {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  position: absolute;
-  cursor: pointer;
-  transition: all 0.4s ease;
-}
-
-.nav-box {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 2;
-}
-
-.nav-item {
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  color: white;
-  font-weight: bold;
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
-.nav-item:hover {
-  transform: scale(1.2);
-  background: rgba(255, 255, 255, 0.3);
+.moving-heading {
+  font-size: 2.8rem;
+  font-weight: bold;
+  position: absolute;
+  transition: all 0.5s ease;
+  user-select: none;
+  cursor: pointer;
 }
 
   </style>
 </head>
-<body>  <!-- Background video -->  <video autoplay muted loop>
+<body>
+  <video autoplay muted loop>
     <source src="linmy.mp4" type="video/mp4" />
-    Your browser does not support HTML5 video.
-  </video>  <!-- Navigation buttons -->  <div class="nav-box">
-    <div class="nav-item">Gallery</div>
-    <div class="nav-item">About</div>
-    <div class="nav-item">Vibes</div>
-  </div>  <!-- Center heading -->  <div class="container">
-    <div id="mainText">✨ Try to catch me! ✨</div>
+    Your browser does not support the video tag.
+  </video>  <div class="container">
+    <div class="moving-heading" id="heading">Scroll Softly, You Are In My Space</div>
   </div>  <script>
-    const text = document.getElementById('mainText');
+    const heading = document.getElementById('heading');
+
     const messages = [
       "Oh no, you can't touch me!",
-      "Too slow 😜",
-      "Catch me if you can!",
-      "I'm outta here!",
-      "Try again, Linisha!"
+      "Try again!",
+      "Nice try!",
+      "Getting closer!",
+      "Oops! Missed me!"
     ];
 
-    let msgIndex = 0;
+    let messageIndex = 0;
+    let originalText = heading.textContent;
 
-    function moveText() {
-      const x = Math.random() * (window.innerWidth - 200);
-      const y = Math.random() * (window.innerHeight - 100);
-      text.style.left = `${x}px`;
-      text.style.top = `${y}px`;
+    function randomPosition() {
+      const maxX = window.innerWidth - heading.offsetWidth;
+      const maxY = window.innerHeight - heading.offsetHeight;
+      const newX = Math.floor(Math.random() * maxX);
+      const newY = Math.floor(Math.random() * maxY);
+
+      heading.style.left = `${newX}px`;
+      heading.style.top = `${newY}px`;
     }
 
-    text.addEventListener('mousemove', () => {
-      moveText();
-      text.textContent = messages[msgIndex];
-      msgIndex = (msgIndex + 1) % messages.length;
-    });
+    function moveAndChangeText() {
+      heading.textContent = messages[messageIndex];
+      randomPosition();
 
-    // Initial random start
-    window.onload = () => {
-      moveText();
+      messageIndex = (messageIndex + 1) % messages.length;
+
+      setTimeout(() => {
+        heading.textContent = originalText;
+        heading.style.left = '50%';
+        heading.style.top = '50%';
+        heading.style.transform = 'translate(-50%, -50%)';
+      }, 2000);
     }
+
+    heading.addEventListener('mouseenter', moveAndChangeText);
+    heading.addEventListener('touchstart', moveAndChangeText);
+
+    // Initial center positioning
+    heading.style.left = '50%';
+    heading.style.top = '50%';
+    heading.style.transform = 'translate(-50%, -50%)';
   </script></body>
 </html>
