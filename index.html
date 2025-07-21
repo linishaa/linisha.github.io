@@ -2,96 +2,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linisha's Site</title>
+  <title>Scroll Softly</title>
   <style>
-    html, body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      background: black;
-      color: white;
-    }video {
+    }html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+video.bg-video {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   z-index: -1;
 }
 
-.container {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.center-heading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 20px;
   text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-.moving-heading {
-  font-size: 2.8rem;
-  font-weight: bold;
+.message-box {
   position: absolute;
-  transition: all 0.5s ease;
-  user-select: none;
-  cursor: pointer;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  display: none;
+}
+
+@keyframes jump {
+  0% { transform: translate(-50%, -50%); }
+  25% { transform: translate(-120%, -80%); }
+  50% { transform: translate(50%, -120%); }
+  75% { transform: translate(80%, 50%); }
+  100% { transform: translate(-50%, -50%); }
 }
 
   </style>
 </head>
 <body>
-  <video autoplay muted loop>
-    <source src="linmy.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>  <div class="container">
-    <div class="moving-heading" id="heading">Scroll Softly, You Are In My Space</div>
-  </div>  <script>
-    const heading = document.getElementById('heading');
-
+  <video class="bg-video" autoplay muted loop>
+    <source src="linmy.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>  <div class="center-heading" id="mainText">Scroll Softly, You Are In My Space</div>
+  <div class="message-box" id="messageBox"></div>  <script>
     const messages = [
       "Oh no, you can't touch me!",
-      "Try again!",
-      "Nice try!",
-      "Getting closer!",
-      "Oops! Missed me!"
+      "Try again? Not so easy!",
+      "Oops! Missed again!",
+      "You're persistent, I like it!"
     ];
 
     let messageIndex = 0;
-    let originalText = heading.textContent;
+    const heading = document.getElementById('mainText');
+    const messageBox = document.getElementById('messageBox');
 
-    function randomPosition() {
-      const maxX = window.innerWidth - heading.offsetWidth;
-      const maxY = window.innerHeight - heading.offsetHeight;
-      const newX = Math.floor(Math.random() * maxX);
-      const newY = Math.floor(Math.random() * maxY);
+    heading.addEventListener('mouseover', () => {
+      heading.style.left = Math.random() * 80 + '%';
+      heading.style.top = Math.random() * 80 + '%';
 
-      heading.style.left = `${newX}px`;
-      heading.style.top = `${newY}px`;
-    }
-
-    function moveAndChangeText() {
-      heading.textContent = messages[messageIndex];
-      randomPosition();
-
-      messageIndex = (messageIndex + 1) % messages.length;
+      messageBox.textContent = messages[messageIndex];
+      messageBox.style.display = 'block';
 
       setTimeout(() => {
-        heading.textContent = originalText;
+        messageBox.style.display = 'none';
         heading.style.left = '50%';
         heading.style.top = '50%';
-        heading.style.transform = 'translate(-50%, -50%)';
       }, 2000);
-    }
 
-    heading.addEventListener('mouseenter', moveAndChangeText);
-    heading.addEventListener('touchstart', moveAndChangeText);
-
-    // Initial center positioning
-    heading.style.left = '50%';
-    heading.style.top = '50%';
-    heading.style.transform = 'translate(-50%, -50%)';
+      messageIndex = (messageIndex + 1) % messages.length;
+    });
   </script></body>
 </html>
