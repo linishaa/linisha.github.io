@@ -81,8 +81,11 @@ video.bg-video {
     const messageBox = document.getElementById('messageBox');
 
     heading.addEventListener('mouseover', () => {
-      heading.style.left = Math.random() * 80 + '%';
-      heading.style.top = Math.random() * 80 + '%';
+      const randomX = Math.random() * 80;
+      const randomY = Math.random() * 80;
+
+      heading.style.left = randomX + '%';
+      heading.style.top = randomY + '%';
 
       messageBox.textContent = messages[messageIndex];
       messageBox.style.display = 'block';
