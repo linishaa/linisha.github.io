@@ -3,107 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gallery - Linisha</title>
+  <title>Gallery</title>
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
     }
 
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
+    .gallery {
+      display: flex;
+      height: 100vh;
       overflow: hidden;
     }
 
-    /* Background Video (Mist or Smoke) */
-    #smoke-bg {
-      position: fixed;
+    .gallery img {
+      width: 33.333%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      z-index: 1;
+    }
+
+    .nav {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -2;
-      opacity: 0.6;
-      filter: blur(3px);
-    }
-
-    .gallery-container {
-      height: 100vh;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding: 40px;
-      gap: 10px;
-    }
-
-    .gallery-container img {
-      width: 32%;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      transition: transform 0.4s ease, filter 0.4s ease;
-      cursor: pointer;
-    }
-
-    /* Step/Stairs effect */
-    .gallery-container img:nth-child(1) {
-      margin-bottom: 60px;
-    }
-
-    .gallery-container img:nth-child(2) {
-      margin-bottom: 30px;
-    }
-
-    .gallery-container img:nth-child(3) {
-      margin-bottom: 0px;
-    }
-
-    /* Hover Effect */
-    .gallery-container img:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
-    }
-
-    /* Back link */
-    .back-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 18px;
-      background: rgba(0,0,0,0.4);
-      padding: 6px 14px;
-      border-radius: 8px;
-      z-index: 5;
-    }
-
-    .back-btn:hover {
       background: rgba(0,0,0,0.7);
+      padding: 10px 20px;
+      display: flex;
+      gap: 20px;
+      font-size: 18px;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #ffcc00;
     }
   </style>
 </head>
 <body>
-
-  <!-- Background Video -->
-  <video autoplay muted loop id="smoke-bg">
-    <source src="smoke.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <!-- Back to Home -->
-  <a class="back-btn" href="index.html">← Home</a>
-
-  <!-- Gallery -->
-  <div class="gallery-container">
-    <img src="img1.jpg" alt="Photo 1" />
-    <img src="img2.jpg" alt="Photo 2" />
-    <img src="img3.jpg" alt="Photo 3" />
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="#">About</a>
   </div>
 
+  <div class="gallery">
+    <img src="https://source.unsplash.com/800x1200/?coffee" alt="Coffee 1" />
+    <img src="https://source.unsplash.com/800x1201/?coffeepot" alt="Coffee Pot" />
+    <img src="https://source.unsplash.com/800x1202/?espresso" alt="Espresso" />
+  </div>
 </body>
 </html>
