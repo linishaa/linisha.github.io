@@ -1,74 +1,49 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scroll Softly</title>
   <style>
-    * {
-      box-sizing: border-box;
+    body, html {
+      height: 100%;
       margin: 0;
-      padding: 0;
-    }html, body {
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
-}
+      font-family: sans-serif;
+      background-color: black;
+      overflow: hidden;
+      color: white;
+    }
 
-video.bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-}
+    .center-heading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-.center-heading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2.5rem;
-  font-weight: bold;
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  user-select: none;
-}
-
-.message-box {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 15px 25px;
-  border-radius: 15px;
-  font-size: 1.2rem;
-  display: none;
-}
-
-@keyframes jump {
-  0% { transform: translate(-50%, -50%); }
-  25% { transform: translate(-120%, -80%); }
-  50% { transform: translate(50%, -120%); }
-  75% { transform: translate(80%, 50%); }
-  100% { transform: translate(-50%, -50%); }
-}
-
+    .message-box {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      font-size: 1.2rem;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop>
-    <source src="linmy.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>  <div class="center-heading" id="mainText">Scroll Softly, You Are In My Space</div>
-  <div class="message-box" id="messageBox"></div>  <script>
+  <div class="center-heading" id="mainText">Scroll Softly, You Are In My Space</div>
+  <div class="message-box" id="messageBox"></div>
+
+  <script>
     const messages = [
       "Oh no, you can't touch me!",
       "Try again? Not so easy!",
@@ -76,27 +51,30 @@ video.bg-video {
       "You're persistent, I like it!"
     ];
 
-    let messageIndex = 0;
+    let msgIndex = 0;
     const heading = document.getElementById('mainText');
-    const messageBox = document.getElementById('messageBox');
+    const msgBox = document.getElementById('messageBox');
 
-    heading.addEventListener('mouseover', () => {
-      const randomX = Math.random() * 80;
-      const randomY = Math.random() * 80;
+    function moveHeading() {
+      const randLeft = Math.random() * 80 + '%';
+      const randTop = Math.random() * 80 + '%';
+      heading.style.left = randLeft;
+      heading.style.top = randTop;
 
-      heading.style.left = randomX + '%';
-      heading.style.top = randomY + '%';
-
-      messageBox.textContent = messages[messageIndex];
-      messageBox.style.display = 'block';
+      msgBox.textContent = messages[msgIndex];
+      msgBox.style.display = 'block';
 
       setTimeout(() => {
-        messageBox.style.display = 'none';
+        msgBox.style.display = 'none';
         heading.style.left = '50%';
         heading.style.top = '50%';
       }, 2000);
 
-      messageIndex = (messageIndex + 1) % messages.length;
-    });
-  </script></body>
+      msgIndex = (msgIndex + 1) % messages.length;
+    }
+
+    heading.addEventListener('mouseover', moveHeading);
+    heading.addEventListener('touchstart', moveHeading);
+  </script>
+</body>
 </html>
